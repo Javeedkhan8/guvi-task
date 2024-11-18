@@ -19,11 +19,11 @@ function Productlist({cartitem,setCartitem}) {
     }
   return (
     <div>
-        <div className='grid grid-cols-1 bg-gray-300'>
+        <div className='grid  md:grid-cols-2 bg-gray-300'>
             {product.map((item)=>{
                 return (
                   <div key={item.id}className='flex gap-8 m-4 bg-white p-4 rounded-lg'>
-                    <img src={item.image} alt={item.title} className='w-60 h-60 rounded-md' />
+                    <img src={item.image} alt={item.title} className='w-44 rounded-md' />
                     <div className='flex flex-col gap-2'>
                     <h2 className='font-semibold text-lg'>{item.title}</h2>
                     <p>{item.category}</p>
@@ -31,7 +31,7 @@ function Productlist({cartitem,setCartitem}) {
                     <hr/>
                     <p className='text-xs  text-gray-700 '>{item.description}</p>
                     <p className='text-gray-500 text-sm'>⭐ {item.rating.rate}</p>
-                    <button onClick={() =>addcart(item)} className='bg-blue-500 text-white p-2 rounded-lg w-28 hover:bg-blue-800'>Add to Cart</button>
+                    <button onClick={() =>addcart(item)} className='bg-blue-500 text-white p-2 rounded-lg  hover:bg-blue-800'>Add to Cart</button>
                     </div>
                   </div>
                 )

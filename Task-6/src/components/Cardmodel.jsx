@@ -24,9 +24,9 @@ function Cardmodel({cartitem,removefromcart}) {
       {cartitem.length > 0 ? (
         <div className='bg-gray-200 p-4'>
           {cartitem.map((lists) => (
-            <div key={lists.id} className='flex gap-20 mb-6 p-4 items-center '>
-              <img src={lists.image} alt={lists.title} className='w-20 h-20 '></img>
-              <div className='text-gray-700 '>{lists.title}</div>
+            <div key={lists.id} className='flex flex-wrap gap-10 mb-6 p-2 items-center '>
+              <img src={lists.image} alt={lists.title} className='w-20'></img>
+              <div className='text-gray-700'>{lists.title}</div>
               
                 <button type='button' onClick={handledecrement} className='input-group-text bg-gray-500 hover:bg-gray-800 p-1 rounded-full text-white'>-</button>
                 <div className='form-control text-center'>{quantity}</div>
