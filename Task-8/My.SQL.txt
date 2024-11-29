@@ -1,0 +1,329 @@
+Schema SQL
+
+-- Create the ecommerce database
+CREATE DATABASE ecommerce;
+
+-- Table to store customer information
+CREATE TABLE Customers(
+  Customer_Id INT AUTO_INCREMENT PRIMARY KEY,  -- Primary key for each customer
+  Customer_name VARCHAR(255),  -- Name of the customer
+  Email VARCHAR(255),  -- Email of the customer
+  Address VARCHAR(255)  -- Address of the customer
+);
+
+-- Table to store order information
+CREATE TABLE Orders (
+  Orders_Id INT AUTO_INCREMENT PRIMARY KEY,  -- Primary key for each order
+  Customer_Id INT,  -- Foreign key referencing Customers table
+  Orders_date VARCHAR(255),  -- Order date (could be adjusted to DATE type)
+  Total_amount DECIMAL(10,2),  -- Total amount of the order
+  FOREIGN KEY(Customer_Id) REFERENCES Customers(Customer_Id)  -- Ensures the order belongs to a valid customer
+);
+
+-- Table to store product information
+CREATE TABLE Products(
+  Product_Id INT AUTO_INCREMENT PRIMARY KEY,  -- Primary key for each product
+  Product_name VARCHAR(255),  -- Name of the product
+  Price DECIMAL(10,2),  -- Price of the product
+  Description VARCHAR(255)  -- Description of the product
+);
+
+-- Table to store the items of an order (many-to-many relationship between Orders and Products)
+CREATE TABLE Orders_items (
+  Id INT AUTO_INCREMENT PRIMARY KEY,  -- Primary key for the order item
+  Orders_Id INT,  -- Foreign key referencing the Orders table
+  Product_Id INT,  -- Foreign key referencing the Products table
+  Quantity INT,  -- Quantity of the product ordered
+  Price DECIMAL(10,2),  -- Price of the product at the time of the order
+  FOREIGN KEY (Orders_Id) REFERENCES Orders(Orders_Id),  -- Ensures the item belongs to a valid order
+  FOREIGN KEY (Product_Id) REFERENCES Products(Product_Id)  -- Ensures the item references a valid product
+);
+-- Insert customers into the Customers table
+INSERT INTO Customers (Customer_name, Email, Address)
+VALUES ('John Doe', 'john.doe@email.com', '1234 Elm St, Springfield, IL 62701'),
+('Jane Smith', 'jane.smith@email.com', '5678 Oak St, Madison, WI 53703'),
+('William Johnson', 'william.johnson@email.com', '1357 Pine St, Denver, CO 80202'),
+('Emily Davis', 'emily.davis@email.com', '2468 Birch Rd, Austin, TX 73301'),
+('Michael Brown', 'michael.brown@email.com', '9876 Maple Ave, Seattle, WA 98101'),
+('Sarah Wilson', 'sarah.wilson@email.com', '5432 Cedar Blvd, Portland, OR 97201'),
+('David Lee', 'david.lee@email.com', '1234 Pine St, Los Angeles, CA 90001'),
+('Megan Miller', 'megan.miller@email.com', '6789 Oak St, Phoenix, AZ 85001'),
+('James Garcia', 'james.garcia@email.com', '2345 Elm Ave, Chicago, IL 60601'),
+('Rachel Martinez', 'rachel.martinez@email.com', '3456 Maple St, Miami, FL 33101'),
+('Joseph Clark', 'joseph.clark@email.com', '4567 Cedar Rd, Denver, CO 80205'),
+('Laura Harris', 'laura.harris@email.com', '5678 Pine Ave, San Diego, CA 92101'),
+('Brian Walker', 'brian.walker@email.com', '6789 Birch Blvd, Houston, TX 77001'),
+('Ava Lewis', 'ava.lewis@email.com', '7890 Oak Rd, Minneapolis, MN 55101'),
+('Christopher Young', 'christopher.young@email.com', '8901 Elm St, Phoenix, AZ 85002'),
+('Olivia King', 'olivia.king@email.com', '9012 Maple Rd, Chicago, IL 60604'),
+('Joshua Scott', 'joshua.scott@email.com', '1234 Birch Blvd, Boston, MA 02108'),
+('Isabella Green', 'isabella.green@email.com', '2345 Oak Ave, San Francisco, CA 94102'),
+('Lucas Adams', 'lucas.adams@email.com', '3456 Pine Blvd, Salt Lake City, UT 84101'),
+('Charlotte Nelson', 'charlotte.nelson@email.com', '4567 Cedar St, Raleigh, NC 27601'),
+('Henry Carter', 'henry.carter@email.com', '5678 Elm Rd, New York, NY 10001'),
+('Amelia Hall', 'amelia.hall@email.com', '6789 Maple Blvd, Dallas, TX 75201'),
+('Ethan Allen', 'ethan.allen@email.com', '7890 Birch Rd, Jacksonville, FL 32202'),
+('Lily King', 'lily.king@email.com', '8901 Cedar Blvd, Tampa, FL 33602'),
+('Daniel Wright', 'daniel.wright@email.com', '9012 Pine Ave, Denver, CO 80203'),
+('Sophia Hill', 'sophia.hill@email.com', '2345 Oak St, Seattle, WA 98103'),
+('Matthew Adams', 'matthew.adams@email.com', '3456 Birch Blvd, Austin, TX 73302'),
+('Ella Roberts', 'ella.roberts@email.com', '4567 Cedar Rd, Nashville, TN 37201'),
+('Jack Walker', 'jack.walker@email.com', '5678 Maple Blvd, Houston, TX 77002'),
+('Grace Green', 'grace.green@email.com', '6789 Pine Rd, Chicago, IL 60606'),
+('Samuel Allen', 'samuel.allen@email.com', '7890 Birch St, Los Angeles, CA 90002'),
+('Mia King', 'mia.king@email.com', '8901 Cedar Blvd, Boston, MA 02110'),
+('Sebastian Turner', 'sebastian.turner@email.com', '9012 Oak St, New York, NY 10002'),
+('Chloe Moore', 'chloe.moore@email.com', '1234 Pine Blvd, San Francisco, CA 94103'),
+('Oliver White', 'oliver.white@email.com', '2345 Cedar Rd, Portland, OR 97205'),
+('Ella Scott', 'ella.scott@email.com', '3456 Oak Ave, Salt Lake City, UT 84103'),
+('William Harris', 'william.harris@email.com', '4567 Birch Rd, Madison, WI 53704'),
+('Amelia Carter', 'amelia.carter@email.com', '5678 Maple Ave, Miami, FL 33102'),
+('Benjamin Wright', 'benjamin.wright@email.com', '6789 Pine St, Los Angeles, CA 90003'),
+('Mason Lewis', 'mason.lewis@email.com', '7890 Cedar Blvd, San Diego, CA 92102'),
+('Scarlett Roberts', 'scarlett.roberts@email.com', '8901 Birch Ave, Houston, TX 77003'),
+('Henry Martinez', 'henry.martinez@email.com', '9012 Oak Blvd, Dallas, TX 75202'),
+('James Young', 'james.young@email.com', '1234 Cedar Rd, San Francisco, CA 94104'),
+('Avery Brown', 'avery.brown@email.com', '2345 Pine Ave, Seattle, WA 98104'),
+('Isaiah Turner', 'isaiah.turner@email.com', '3456 Maple Blvd, Phoenix, AZ 85003'),
+('Zoe Wilson', 'zoe.wilson@email.com', '4567 Birch Rd, Denver, CO 80204'),
+('Leo Green', 'leo.green@email.com', '5678 Pine Blvd, Raleigh, NC 27602'),
+('Ella Wright', 'ella.wright@email.com', '6789 Cedar Ave, Chicago, IL 60607'),
+('Liam Lewis', 'liam.lewis@email.com', '7890 Maple Blvd, Austin, TX 73303'),
+('Harper Scott', 'harper.scott@email.com', '8901 Pine Rd, Houston, TX 77004'),
+('Owen Hall', 'owen.hall@email.com', '9012 Birch Blvd, Salt Lake City, UT 84102');
+  
+
+-- Insert orders into the Orders table
+INSERT INTO Orders (Orders_date, Total_amount)
+VALUES ('2024-11-01', 120.50),
+('2024-11-03', 45.75),
+('2024-11-04', 88.90),
+('2024-11-05', 200.30),
+('2024-11-07', 55.00),
+('2024-11-08', 150.40),
+('2024-11-09', 90.00),
+('2024-11-10', 170.25),
+('2024-11-12', 60.10),
+('2024-11-13', 135.60),
+('2024-11-14', 210.00),
+('2024-11-15', 95.75),
+('2024-11-16', 112.25),
+('2024-11-17', 40.00),
+('2024-11-18', 67.99),
+('2024-11-19', 180.50),
+('2024-11-20', 130.30),
+('2024-11-21', 75.45),
+('2024-11-22', 88.60),
+('2024-11-23', 50.00),
+('2024-11-24', 95.90),
+('2024-11-25', 110.25),
+('2024-11-26', 65.50),
+('2024-11-27', 150.00),
+('2024-11-28', 185.40),
+('2024-11-29', 120.75),
+('2024-11-30', 100.60),
+('2024-12-01', 55.25),
+('2024-12-02', 132.40),
+('2024-12-03', 170.10),
+('2024-12-04', 50.60),
+('2024-12-05', 88.90),
+('2024-12-06', 210.10),
+('2024-12-07', 76.20),
+('2024-12-08', 130.50),
+('2024-12-09', 98.75),
+('2024-12-10', 150.00),
+('2024-12-11', 80.45),
+('2024-12-12', 160.30),
+('2024-12-13', 200.00),
+('2024-12-14', 120.90),
+('2024-12-15', 105.60),
+('2024-12-16', 140.10),
+('2024-12-17', 180.75),
+('2024-12-18', 99.50),
+('2024-12-19', 175.00),
+('2024-12-20', 68.90),
+('2024-12-21', 110.20),
+('2024-12-22', 130.50),
+('2024-12-23', 60.00);
+ 
+
+-- Insert products into the Products table
+INSERT INTO Products(Product_name, Price, Description)
+VALUES ('Wireless Mouse', 25.99, 'Ergonomic wireless mouse with long battery life.'),
+('Bluetooth Speaker', 49.99, 'Portable Bluetooth speaker with great sound quality.'),
+('Laptop Sleeve', 19.99, 'Protective sleeve for laptops up to 15 inches.'),
+('Smartphone Stand', 12.49, 'Adjustable stand for smartphones and tablets.'),
+('LED Desk Lamp', 29.99, 'Dimmable LED desk lamp with touch controls.'),
+('Gaming Headset', 59.99, 'Noise-canceling gaming headset with mic and surround sound.'),
+('4K Monitor', 299.99, 'Ultra HD 4K display with high refresh rate.'),
+('External Hard Drive', 79.99, '1TB external hard drive for additional storage.'),
+('Smart Watch', 129.99, 'Fitness tracker and smartwatch with heart rate monitor.'),
+('Keyboard and Mouse Set', 39.99, 'Wired keyboard and mouse combo for easy use.'),
+('Phone Case', 14.99, 'Durable phone case compatible with most models.'),
+('Portable Charger', 22.99, 'Power bank with 10,000mAh capacity for quick charging.'),
+('E-Book Reader', 119.99, '6-inch e-ink screen with adjustable backlight.'),
+('Smart Home Hub', 89.99, 'Control all your smart devices with a single hub.'),
+('Digital Camera', 349.99, 'DSLR camera with 24MP resolution and video recording.'),
+('Gaming Mouse', 29.99, 'High-precision gaming mouse with RGB lighting.'),
+('USB Flash Drive', 15.99, '16GB USB drive for quick data transfer and storage.'),
+('Action Camera', 199.99, 'Waterproof action camera with 4K recording capabilities.'),
+('Robot Vacuum', 159.99, 'Smart robot vacuum cleaner with app control.'),
+('Wireless Earbuds', 49.99, 'True wireless earbuds with touch controls.'),
+('Electric Toothbrush', 29.99, 'Rechargeable electric toothbrush with multiple modes.'),
+('Smart Thermostat', 129.99, 'Wi-Fi enabled smart thermostat for home temperature control.'),
+('Coffee Maker', 59.99, '12-cup programmable coffee maker with automatic brewing.'),
+('Blender', 49.99, 'High-speed blender for smoothies and soups.'),
+('Smart Light Bulb', 19.99, 'LED smart light bulb with color-changing options.'),
+('Fitness Tracker', 69.99, 'Wearable fitness tracker with sleep monitoring and step counting.'),
+('HDMI Cable', 9.99, 'High-quality HDMI cable for connecting devices to your TV.'),
+('Air Purifier', 99.99, 'HEPA air purifier for clean and fresh indoor air.'),
+('Digital Photo Frame', 79.99, 'Wi-Fi enabled digital frame to display family photos.'),
+('Cooking Thermometer', 14.99, 'Instant-read cooking thermometer for precise temperature measurement.'),
+('Wireless Charger', 25.99, 'Qi-certified wireless charger for fast charging.'),
+('Phone Screen Protector', 8.99, 'Tempered glass screen protector for scratch resistance.'),
+('Microphone', 89.99, 'USB microphone for high-quality audio recording.'),
+('Electric Kettle', 34.99, 'Cordless electric kettle with auto shut-off feature.'),
+('Table Fan', 19.99, 'Portable table fan with three-speed settings.'),
+('Treadmill', 499.99, 'Foldable treadmill with adjustable speed and incline.'),
+('Electric Grill', 99.99, 'Non-stick electric grill for indoor cooking.'),
+('Refrigerator', 899.99, 'Energy-efficient refrigerator with multiple compartments.'),
+('Dishwasher', 499.99, 'Built-in dishwasher with 5 wash cycles and energy-saving features.'),
+('Smartphone', 699.99, 'Latest model smartphone with 128GB storage and 5G capability.'),
+('Coffee Grinder', 29.99, 'Electric coffee grinder for fresh ground coffee beans.'),
+('Electric Shaver', 39.99, 'Cordless electric shaver with close shave technology.'),
+('Soda Maker', 59.99, 'Home soda maker for making fizzy drinks from water.'),
+('Table Lamp', 19.99, 'Modern table lamp with adjustable brightness and style.'),
+('Guitar', 149.99, 'Acoustic guitar with solid wood body and smooth finish.'),
+('Yoga Mat', 22.99, 'Non-slip yoga mat with extra cushioning for comfort.'),
+('Portable Fan', 15.99, 'Rechargeable portable fan for on-the-go use.'),
+('Electric Pressure Cooker', 79.99, 'Multi-function electric pressure cooker with slow cook and pressure cook modes.'),
+('Soundbar', 129.99, 'Wireless soundbar for enhanced audio experience in home theater.'),
+('Smart Scale', 39.99, 'Bluetooth smart scale with body composition analysis.'),
+('Water Bottle', 12.99, 'Insulated water bottle with leak-proof lid.'),
+('Telescope', 249.99, 'Beginner-friendly telescope for stargazing and astronomy.'),
+('Luggage Set', 159.99, '3-piece luggage set with 360-degree spinner wheels.'),
+('Car Phone Mount', 14.99, 'Adjustable phone mount for safe driving and navigation.'),
+('Pet Camera', 99.99, 'Wi-Fi pet camera with two-way audio and video streaming.'),
+('Electric Blanket', 49.99, 'Heated electric blanket for warmth on cold nights.');
+  
+
+-- Insert order items into the Orders_items table (linking orders and products)
+INSERT INTO Orders_items (Orders_Id, Product_Id, Quantity, Price)
+VALUES (1, 1, 2, 30.00),
+(1, 2, 1, 40.00),
+(2, 2, 3, 40.00),
+(3, 1, 1, 30.00),
+(3, 3, 2, 50.00),
+(4, 4, 1, 12.49),
+(4, 5, 1, 29.99),
+(5, 6, 1, 59.99),
+(5, 7, 1, 299.99),
+(6, 8, 1, 79.99),
+(6, 9, 1, 129.99),
+(7, 10, 1, 39.99),
+(7, 11, 2, 22.99),
+(8, 12, 1, 119.99),
+(8, 13, 1, 89.99),
+(9, 14, 1, 349.99),
+(9, 15, 2, 29.99),
+(10, 16, 1, 15.99),
+(10, 17, 1, 199.99),
+(11, 18, 1, 159.99),
+(11, 19, 1, 49.99),
+(12, 20, 1, 29.99),
+(12, 21, 1, 129.99),
+(13, 22, 2, 59.99),
+(13, 23, 1, 59.99),
+(14, 24, 1, 69.99),
+(14, 25, 1, 9.99),
+(15, 26, 1, 99.99),
+(15, 27, 1, 79.99),
+(16, 28, 1, 79.99),
+(16, 29, 1, 15.99),
+(17, 30, 2, 39.99),
+(17, 31, 1, 29.99),
+(18, 32, 1, 49.99),
+(18, 33, 1, 69.99),
+(19, 34, 1, 499.99),
+(19, 35, 1, 499.99),
+(20, 36, 1, 699.99),
+(20, 37, 1, 29.99),
+(21, 38, 1, 39.99),
+(21, 39, 1, 59.99),
+(22, 40, 1, 19.99),
+(22, 41, 1, 149.99),
+(23, 42, 1, 22.99),
+(23, 43, 1, 79.99),
+(24, 44, 1, 22.99),
+(24, 45, 1, 59.99),
+(25, 46, 1, 19.99),
+(25, 47, 1, 49.99),
+(26, 48, 1, 129.99),
+(26, 49, 1, 24.99),
+(27, 50, 1, 69.99),
+(27, 51, 1, 119.99),
+(28, 52, 1, 8.99),
+(28, 53, 1, 99.99),
+(29, 54, 2, 29.99),
+(29, 55, 1, 89.99),
+(30, 56, 1, 89.99),
+(30, 57, 1, 49.99),
+(31, 58, 1, 69.99),
+(31, 59, 1, 129.99),
+(32, 60, 1, 39.99),
+(32, 61, 1, 159.99),
+(33, 62, 1, 79.99),
+(33, 63, 1, 109.99),
+(34, 64, 1, 99.99),
+(34, 65, 1, 199.99);
+
+  
+
+Query SQL
+
+-- 1. Retrieve customer details and their corresponding order dates, limited to 30 results with an offset of 20
+SELECT DISTINCT Customers.Customer_Id, Customer_name, Email, Address, Orders_date
+FROM Customers
+JOIN Orders ON Customers.Customer_Id = Orders.Customer_Id  -- Fix: Join on Customer_Id, not Orders_Id
+WHERE Orders.Orders_date >=CURDATE() - INTERVAL 30 DAY;
+
+-- 2. Calculate the total sum of all orders
+SELECT SUM(Total_amount) AS Total_amount FROM Orders;
+
+-- 3. Update the price of the 'Laptop Sleeve' product to 45.00
+UPDATE Products
+SET Price = 45.00
+WHERE Product_name = 'Laptop Sleeve';
+SELECT * FROM Products;
+
+-- 4. Add a new column for discount to the Products table
+ALTER TABLE Products
+ADD COLUMN Discount DECIMAL(10, 2);
+SELECT * FROM Products;
+
+-- 5. List the top 3 most expensive products ordered by price in descending order
+SELECT Product_Id, Product_name, Price FROM Products
+ORDER BY Price DESC
+LIMIT 3;
+
+-- 6. List all customers who ordered a 'Wireless Mouse'
+SELECT DISTINCT Customer_name FROM Customers
+JOIN Orders ON Customers.Customer_Id = Orders.Customer_Id
+JOIN Orders_items ON Orders.Orders_Id = Orders_items.Orders_Id
+JOIN Products ON Orders_items.Product_Id = Products.Product_Id
+WHERE Product_name = 'Wireless Mouse';
+
+-- 7. Retrieve the name and order date for each customer and their corresponding order
+SELECT Customer_name, Orders_date FROM Customers
+JOIN Orders ON Customers.Customer_Id = Orders.Customer_Id;
+
+-- 8. Retrieve orders where the total amount is greater than 150.00
+SELECT Orders_Id, Customer_Id, Orders_date, Total_amount
+FROM Orders
+WHERE Total_amount > 150.00;
+
+-- 9. Creating a separate table for Orders_items
+
+-- 10. Calculate the average total amount of all orders
+SELECT AVG(Total_amount) AS Average_Total_amount
+FROM Orders;
