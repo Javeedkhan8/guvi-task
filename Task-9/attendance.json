@@ -1,0 +1,288 @@
+[{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214944"
+  },
+  "userId": 1,
+  "topicId": 1,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214945"
+  },
+  "userId": 2,
+  "topicId": 2,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214946"
+  },
+  "userId": 3,
+  "topicId": 3,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214947"
+  },
+  "userId": 4,
+  "topicId": 4,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214948"
+  },
+  "userId": 5,
+  "topicId": 5,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214949"
+  },
+  "userId": 6,
+  "topicId": 6,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721494a"
+  },
+  "userId": 7,
+  "topicId": 7,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721494b"
+  },
+  "userId": 8,
+  "topicId": 8,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721494c"
+  },
+  "userId": 9,
+  "topicId": 9,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721494d"
+  },
+  "userId": 10,
+  "topicId": 10,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721494e"
+  },
+  "userId": 11,
+  "topicId": 11,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721494f"
+  },
+  "userId": 12,
+  "topicId": 12,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214950"
+  },
+  "userId": 13,
+  "topicId": 13,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214951"
+  },
+  "userId": 14,
+  "topicId": 14,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214952"
+  },
+  "userId": 15,
+  "topicId": 15,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214953"
+  },
+  "userId": 16,
+  "topicId": 16,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214954"
+  },
+  "userId": 17,
+  "topicId": 17,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214955"
+  },
+  "userId": 18,
+  "topicId": 18,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214956"
+  },
+  "userId": 19,
+  "topicId": 19,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214957"
+  },
+  "userId": 20,
+  "topicId": 20,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214958"
+  },
+  "userId": 21,
+  "topicId": 21,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214959"
+  },
+  "userId": 22,
+  "topicId": 22,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721495a"
+  },
+  "userId": 23,
+  "topicId": 23,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721495b"
+  },
+  "userId": 24,
+  "topicId": 24,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721495c"
+  },
+  "userId": 25,
+  "topicId": 25,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721495d"
+  },
+  "userId": 26,
+  "topicId": 26,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721495e"
+  },
+  "userId": 27,
+  "topicId": 27,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf367721495f"
+  },
+  "userId": 28,
+  "topicId": 28,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214960"
+  },
+  "userId": 29,
+  "topicId": 29,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214961"
+  },
+  "userId": 30,
+  "topicId": 30,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214962"
+  },
+  "userId": 31,
+  "topicId": 31,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214963"
+  },
+  "userId": 32,
+  "topicId": 32,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214964"
+  },
+  "userId": 33,
+  "topicId": 33,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214965"
+  },
+  "userId": 34,
+  "topicId": 34,
+  "attended": true
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214966"
+  },
+  "userId": 35,
+  "topicId": 35,
+  "attended": false
+},
+{
+  "_id": {
+    "$oid": "64fedc53c877bf3677214967"
+  },
+  "userId": 36,
+  "topicId": 36,
+  "attended": true
+}]

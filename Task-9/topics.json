@@ -1,0 +1,288 @@
+[{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214a9d"
+  },
+  "topicId": 1,
+  "topic": "RWD",
+  "topicDate": "2020-10-10"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214a9e"
+  },
+  "topicId": 2,
+  "topic": "SEO",
+  "topicDate": "2021-02-15"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214a9f"
+  },
+  "topicId": 3,
+  "topic": "Backend Development",
+  "topicDate": "2021-05-20"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa0"
+  },
+  "topicId": 4,
+  "topic": "Frontend Development",
+  "topicDate": "2021-08-25"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa1"
+  },
+  "topicId": 5,
+  "topic": "Design Systems",
+  "topicDate": "2021-11-10"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa2"
+  },
+  "topicId": 6,
+  "topic": "Machine Learning",
+  "topicDate": "2021-12-01"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa3"
+  },
+  "topicId": 7,
+  "topic": "Cloud Computing",
+  "topicDate": "2022-01-15"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa4"
+  },
+  "topicId": 8,
+  "topic": "Artificial Intelligence",
+  "topicDate": "2022-03-10"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa5"
+  },
+  "topicId": 9,
+  "topic": "Database Management",
+  "topicDate": "2022-05-30"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa6"
+  },
+  "topicId": 10,
+  "topic": "DevOps",
+  "topicDate": "2022-06-14"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa7"
+  },
+  "topicId": 11,
+  "topic": "Cybersecurity",
+  "topicDate": "2022-07-19"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa8"
+  },
+  "topicId": 12,
+  "topic": "Software Testing",
+  "topicDate": "2022-09-01"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aa9"
+  },
+  "topicId": 13,
+  "topic": "Agile Methodology",
+  "topicDate": "2022-10-11"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aaa"
+  },
+  "topicId": 14,
+  "topic": "Data Science",
+  "topicDate": "2022-11-21"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aab"
+  },
+  "topicId": 15,
+  "topic": "Networking",
+  "topicDate": "2023-01-17"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aac"
+  },
+  "topicId": 16,
+  "topic": "Blockchain",
+  "topicDate": "2023-03-08"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aad"
+  },
+  "topicId": 17,
+  "topic": "IoT",
+  "topicDate": "2023-04-10"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aae"
+  },
+  "topicId": 18,
+  "topic": "Virtual Reality",
+  "topicDate": "2023-05-25"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aaf"
+  },
+  "topicId": 19,
+  "topic": "Augmented Reality",
+  "topicDate": "2023-07-05"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab0"
+  },
+  "topicId": 20,
+  "topic": "Web Scraping",
+  "topicDate": "2023-08-20"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab1"
+  },
+  "topicId": 21,
+  "topic": "Mobile App Development",
+  "topicDate": "2023-09-30"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab2"
+  },
+  "topicId": 22,
+  "topic": "E-commerce Platforms",
+  "topicDate": "2023-10-15"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab3"
+  },
+  "topicId": 23,
+  "topic": "UI/UX Design",
+  "topicDate": "2023-11-05"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab4"
+  },
+  "topicId": 24,
+  "topic": "Cross-platform Development",
+  "topicDate": "2024-01-01"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab5"
+  },
+  "topicId": 25,
+  "topic": "Game Development",
+  "topicDate": "2024-02-10"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab6"
+  },
+  "topicId": 26,
+  "topic": "Cloud Security",
+  "topicDate": "2024-03-15"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab7"
+  },
+  "topicId": 27,
+  "topic": "Quantum Computing",
+  "topicDate": "2024-04-20"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab8"
+  },
+  "topicId": 28,
+  "topic": "Natural Language Processing",
+  "topicDate": "2024-05-25"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ab9"
+  },
+  "topicId": 29,
+  "topic": "Big Data",
+  "topicDate": "2024-06-30"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214aba"
+  },
+  "topicId": 30,
+  "topic": "Robotics",
+  "topicDate": "2024-07-10"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214abb"
+  },
+  "topicId": 31,
+  "topic": "Edge Computing",
+  "topicDate": "2024-08-14"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214abc"
+  },
+  "topicId": 32,
+  "topic": "5G Networks",
+  "topicDate": "2024-09-20"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214abd"
+  },
+  "topicId": 33,
+  "topic": "Self-driving Cars",
+  "topicDate": "2024-10-01"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214abe"
+  },
+  "topicId": 34,
+  "topic": "Smart Cities",
+  "topicDate": "2024-11-12"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214abf"
+  },
+  "topicId": 35,
+  "topic": "Smart Homes",
+  "topicDate": "2024-12-05"
+},
+{
+  "_id": {
+    "$oid": "64fee15bc877bf3677214ac0"
+  },
+  "topicId": 36,
+  "topic": "FinTech",
+  "topicDate": "2025-01-20"
+}]
