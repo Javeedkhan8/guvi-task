@@ -1,9 +1,9 @@
-const Recipe = require("../model/recipemodel");
+const Recipes = require("../model/recipemodel");
 
 // Create a new recipe
 const createRecipe = async (req, res) => {
     try {
-      const newRecipe = new Recipe(req.body);
+      const newRecipe = new Recipes(req.body);
       await newRecipe.save();
       res.status(201).json(newRecipe);
     } catch (error) {
@@ -14,7 +14,7 @@ const createRecipe = async (req, res) => {
   // Get all recipes
   const getAllRecipes = async (req, res) => {
     try {
-      const recipes = await Recipe.find();
+      const recipes = await Recipes.find();
       res.status(200).json(recipes);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -24,7 +24,7 @@ const createRecipe = async (req, res) => {
   // Get a recipe by ID
   const getRecipeById = async (req, res) => {
     try {
-      const recipe = await Recipe.findById(req.params.id);
+      const recipe = await Recipes.findById(req.params.id);
       if (!recipe) {
         return res.status(404).json({ message: 'Recipe not found' });
       }
@@ -37,7 +37,7 @@ const createRecipe = async (req, res) => {
   // Update a recipe by ID
   const updateRecipe = async (req, res) => {
     try {
-      const updatedRecipe = await Recipe.findByIdAndUpdate(
+      const updatedRecipe = await Recipes.findByIdAndUpdate(
         req.params.id,
         req.body,
         { new: true, runValidators: true }
@@ -54,7 +54,7 @@ const createRecipe = async (req, res) => {
   // Delete a recipe by ID
   const deleteRecipe = async (req, res) => {
     try {
-      const deletedRecipe = await Recipe.findByIdAndDelete(req.params.id);
+      const deletedRecipe = await Recipes.findByIdAndDelete(req.params.id);
       if (!deletedRecipe) {
         return res.status(404).json({ message: 'Recipe not found' });
       }

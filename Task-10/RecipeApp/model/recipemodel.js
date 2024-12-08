@@ -19,5 +19,5 @@ const newschema = new mongoose.Schema({
       },
 });
 
-const Recipe = mongoose.model("Recipes",newschema);
-module.exports = Recipe
+const Recipes = mongoose.model("Recipes",newschema);
+module.exports = Recipes
