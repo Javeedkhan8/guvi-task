@@ -7,7 +7,7 @@ const app = express();
 
 app.use(bodyParser.json());
 connectDB();
-app.use("/api/recipes",router)
+app.use("/",router)
 
 
 const port = 2000
