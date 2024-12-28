@@ -78,7 +78,7 @@ const Homepage = () => {
                 Applications
               </Link>
               <Link
-                to="/interview"
+                to="/interviewpage"
                 className="text-blue-400 hover:text-pink-400"
                 onClick={() => setIsMegaMenuOpen(false)}
               >
