@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Set your backend API base URL
-const API_BASE_URL = 'http://localhost:2004/api';
+const API_BASE_URL = 'https://guvi-task-8-9e2s.onrender.com/api';
 
 // Student API Endpoints
 export const registerStudent = async (studentData) => {
