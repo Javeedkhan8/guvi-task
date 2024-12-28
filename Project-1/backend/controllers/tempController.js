@@ -1,6 +1,7 @@
 // controllers/userController.js
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+require("dotenv").config()
 
 // Register a new user
 const registerUser = async (req, res) => {
@@ -74,7 +75,21 @@ const loginUser = async (req, res) => {
   }
 };
 
+async function verifyUser(req, res, next){
+    try{
+        const { username } = req.method == "GET" ? req.query : req.body;
+
+        //check the user existance
+        let exist = await User.findOne({ username });
+        if(!exist) return res.status(404).send({error:"Can't find User!"});
+        next();
+    }catch(error){
+        return res.status(404).send({error: "Authentication Error"})
+    }
+}
+
 module.exports = {
   registerUser,
   loginUser,
+  verifyUser
 };

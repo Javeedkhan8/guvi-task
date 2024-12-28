@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const connectDB = require("./config/dbConfig")
 require("dotenv").config();
 const authRoutes = require("./routes/userRoutes");
@@ -12,6 +11,8 @@ const admin = require("./routes/admin")
 
 const app = express();
 
+connectDB()
+
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
@@ -21,7 +22,7 @@ app.use('/api/payment',payment);
 app.use('/api/reviews',review);
 app.use('/api/admin',admin);
 
-connectDB()
+
 
 app.get('/', (req, res) => {
     res.send('Vehicle Rental API is running...');
@@ -31,3 +32,6 @@ const port = process.env.PORT
 app.listen(port,() => {
     console.log(`Server running on port ${port}`);
 })
+
+
+
