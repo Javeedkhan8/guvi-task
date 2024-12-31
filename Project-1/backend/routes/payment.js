@@ -1,83 +1,70 @@
-const express = require("express");
-require("dotenv").config();
-const paypal = require("@paypal/checkout-server-sdk");
-const Razorpay = require("razorpay");
-const Booking = require("../models/Booking");
-
+const express = require('express');
+const paypal = require('@paypal/checkout-server-sdk');
+const Vehicle = require('../models/Vehicle');
 const router = express.Router();
+require('dotenv').config();
 
-// PayPal SDK setup
-const paypalEnvironment = new paypal.core.SandboxEnvironment(
-  process.env.PAYPAL_CLIENT_ID,
-  process.env.PAYPAL_SECRET_KEY
-);
-const paypalClient = new paypal.core.PayPalHttpClient(paypalEnvironment);
+// Set up PayPal environment with your client ID and secret
+const clientId = process.env.PAYPAL_CLIENT_ID;
+const clientSecret = process.env.PAYPAL_SECRET_KEY;
 
-// Razorpay setup
-const razorpayInstance = new Razorpay({
-  key_id:process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+// PayPal environment configuration
+const environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
+const client = new paypal.core.PayPalHttpClient(environment);
 
-// PayPal Order Creation
-router.post("/create-paypal-order", async (req, res) => {
-  const { bookingId } = req.body;
-  const booking = await Booking.findById(bookingId);
+// Create PayPal Order Route
+router.post('/create-order', async (req, res) => {
+  const { vehicleId, quantity, userEmail } = req.body;
 
-  if (!booking) {
-    return res.status(404).json({ message: "Booking not found" });
-  }
+  try {
+    const vehicle = await Vehicle.findById(vehicleId);
+    const totalAmount = (Vehicle.price_per_day * quantity).toFixed(2); // Total amount in dollars
 
-  const amount = booking.totalAmount.toFixed(2); // PayPal expects amount in 2 decimal places
-
-  const request = new paypal.orders.OrdersCreateRequest();
-  request.prefer("return=representation");
-  request.requestBody({
-    intent: "CAPTURE",
-    purchase_units: [
-      {
-        amount: {
-          currency_code: "USD",
-          value: amount,
+    // Create an order on PayPal
+    const orderRequest = new paypal.orders.OrdersCreateRequest();
+    orderRequest.prefer('return=representation');
+    orderRequest.requestBody({
+      intent: 'CAPTURE',
+      purchase_units: [
+        {
+          amount: {
+            currency_code: 'USD',
+            value: totalAmount,
+          },
+          description: `Vehicle Rental: ${Vehicle.make} ${Vehicle.model}`,
         },
+      ],
+      application_context: {
+        return_url: 'http://localhost:2002/api/payment/capture-payment', // Redirect URL after payment
+        cancel_url: 'http://localhost:2002/payment/cancel', // Redirect URL if payment is cancelled
       },
-    ],
-  });
+    });
 
-  try {
-    const order = await paypalClient.execute(request);
-    res.json({ id: order.result.id });
+    const order = await client.execute(orderRequest);
+    res.status(200).json({ approvalLink: order.result.links[1].href }); // Return the approval link
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error creating PayPal order:', error);
+    res.status(500).json({ message: 'Error processing payment' });
   }
 });
 
-// Razorpay Order Creation
-router.post("/create-razorpay-order", async (req, res) => {
-  const { bookingId } = req.body;
-  const booking = await Booking.findById(bookingId);
-
-  if (!booking) {
-    return res.status(404).json({ message: "Booking not found" });
-  }
-
-  const amount = booking.totalAmount * 100; // Razorpay expects amount in paise
+// Capture PayPal Payment Route
+router.get('/capture-payment', async (req, res) => {
+  const { token } = req.query;
 
   try {
-    const order = await razorpayInstance.orders.create({
-      amount,
-      currency: "INR",
-      receipt: `receipt#${bookingId}`,
-    });
+    // Capture payment after successful approval
+    const captureRequest = new paypal.orders.OrdersCaptureRequest(token);
+    captureRequest.requestBody({});
 
-    res.json({
-      id: order.id,
-      amount: order.amount,
-      currency: order.currency,
-      receipt: order.receipt,
-    });
+    const capture = await client.execute(captureRequest);
+    // Store payment details in your database (e.g., Payment collection)
+    // You can also mark the booking as paid here.
+
+    res.status(200).json({ message: 'Payment successful', paymentDetails: capture.result });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error capturing PayPal payment:', error);
+    res.status(500).json({ message: 'Error capturing payment' });
   }
 });
 

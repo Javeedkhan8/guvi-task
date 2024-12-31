@@ -17,4 +17,6 @@ const authenticate = (req, res, next) => {
   }
 };
 
+app.use('/api/auth/profile', authenticate);
+
 module.exports = authenticate;
