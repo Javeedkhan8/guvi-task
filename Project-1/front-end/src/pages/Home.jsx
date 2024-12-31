@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <div className="relative min-h-screen bg-gradient-to-r from-blue-500 to-teal-500 overflow-hidden">
-<<<<<<< HEAD
+
       {/* Navbar */}
       <nav className="bg-transparent absolute top-0 left-0 w-full py-4 px-6 z-20">
         <div className="flex justify-between items-center">
@@ -18,9 +18,7 @@ function Home() {
         </div>
       </nav>
 
-=======
->>>>>>> d98f03bd2c26482d7aa5c4510ef50d7d7954ad4e
-      {/* Background Animation */}
+
       <div className="absolute top-0 left-0 w-full h-full bg-cover bg-fixed opacity-40" style={{ backgroundImage: "url('https://via.placeholder.com/1500x1000.png?text=Vehicle+Rental')" }}></div>
 
       <div className="relative z-10 flex flex-col justify-center items-center min-h-screen text-center text-white px-4 py-8">
@@ -31,8 +29,7 @@ function Home() {
         <p className="text-lg mb-8 opacity-90 transform transition duration-500 hover:opacity-100">
           Find your perfect vehicle and experience the freedom of the road.
         </p>
-<<<<<<< HEAD
-=======
+
 
         {/* Button Section */}
         <div className="flex space-x-4">
@@ -50,7 +47,7 @@ function Home() {
             Register
           </Link>
         </div>
->>>>>>> d98f03bd2c26482d7aa5c4510ef50d7d7954ad4e
+
       </div>
 
       {/* Scroll Down Indicator */}
