@@ -1,75 +1,97 @@
-const express = require('express');
-const Booking = require('../models/Booking');
-const Vehicle = require('../models/Vehicle');
+const express = require("express");
+const Booking = require("../models/Booking");
+const Vehicle = require("../models/Vehicle");
+const User = require("../models/User");
+const sendEmail = require("../services/emailService");
+const sendSMS = require("../services/smsService");
 const router = express.Router();
 
-// Book a vehicle
+// Create a booking
 router.post('/', async (req, res) => {
-  try {
-    const { user, vehicle, start_date, end_date } = req.body;
-
-    // Check if vehicle exists
-    const vehicleData = await Vehicle.findById(vehicle);
-    if (!vehicleData) {
-      return res.status(404).json({ message: 'Vehicle not found' });
+    const { vehicleId, userId, startDate, endDate, totalAmount } = req.body;
+  
+    // Check vehicle availability
+    const vehicle = await Vehicle.findById(vehicleId);
+    if (!vehicle || !vehicle.availability) {
+      return res.status(400).json({ message: 'Vehicle not available' });
     }
-
-    console.log('Vehicle data:', vehicleData); // Debug: Check vehicle details
-
-    // Check availability
-    const overlappingBooking = await Booking.findOne({
-      vehicle,
-      status: 'confirmed',
-      $or: [
-        { start_date: { $lte: end_date }, end_date: { $gte: start_date } },
-      ],
+  
+    const booking = new Booking({
+      vehicle: vehicleId,
+      user: userId,
+      startDate,
+      endDate,
+      totalAmount,
     });
 
-    if (overlappingBooking) {
-      return res.status(400).json({ message: 'Vehicle is not available for these dates.' });
-    }
-
-    // Calculate total price
-    const days = Math.ceil((new Date(end_date) - new Date(start_date)) / (1000 * 60 * 60 * 24));
-    console.log('Total days:', days); // Debug: Check calculated days
-    console.log('Price per day:', vehicleData.price_per_day); // Debug: Check price_per_day
-
-    const total_price = days * vehicleData.price_per_day;
-
-    // Create booking
-    const booking = new Booking({ user, vehicle, start_date, end_date, total_price });
+    vehicle.bookedCount += 1;
+    await vehicle.save();
+    // Save the booking
     await booking.save();
+  
+    // Mark vehicle as unavailable
+    vehicle.availability = false;
+    await vehicle.save();
+  
+    res.json(booking);
+  });
+  
+  // Get all bookings for a user
+  router.get('/:userId', async (req, res) => {
+    const bookings = await Booking.find({ user: req.params.userId })
+      .populate('vehicle', 'make model year')
+      .populate('user', 'username email');
+    res.json(bookings);
+  });
+  
+  // Get a booking by ID (for admin purposes)
+  router.get('/admin/:bookingId', async (req, res) => {
+    const booking = await Booking.findById(req.params.bookingId)
+      .populate('vehicle')
+      .populate('user');
+    res.json(booking);
+  });
 
-    console.log('Booking created:', booking); // Debug: Check created booking
+  // Create a booking
+router.post('/', async (req, res) => {
+    const { vehicleId, userId, startDate, endDate, totalAmount } = req.body;
+  
+    // Check vehicle availability
+    const vehicle = await Vehicle.findById(vehicleId);
+    if (!vehicle || !vehicle.availability) {
+      return res.status(400).json({ message: 'Vehicle not available' });
+    }
+  
+    const booking = new Booking({
+      vehicle: vehicleId,
+      user: userId,
+      startDate,
+      endDate,
+      totalAmount,
+    });
+  
+    // Save the booking
+    await booking.save();
+  
+    // Mark vehicle as unavailable
+    vehicle.availability = false;
+    await vehicle.save();
+  
+    // Get the user's email from the database
+    const user = await User.findById(userId);
+  
+    // Send email confirmation
+    const emailText = `Dear ${user.username},\n\nYour booking for ${vehicle.make} ${vehicle.model} from ${startDate} to ${endDate} has been confirmed. Total Amount: $${totalAmount}.\n\nThank you for using our service!`;
+    sendEmail(user.email, 'Booking Confirmation', emailText);
+  
+    res.json(booking);
 
-    // TODO: Trigger email notification here
-    res.status(201).json(booking);
-  } catch (error) {
-    console.error('Error creating booking:', error);
-    res.status(500).json({ message: 'Error creating booking' });
-  }
-});
+    const smsText = `Dear ${user.username}, your booking for ${vehicle.make} ${vehicle.model} from ${startDate} to ${endDate} has been confirmed. Total Amount: $${totalAmount}.`;
+    sendSMS(user.phone, smsText);
 
-// Modify a booking
-router.put('/:id', async (req, res) => {
-  try {
-    const booking = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.status(200).json(booking);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error updating booking' });
-  }
-});
 
-// Cancel a booking
-router.delete('/:id', async (req, res) => {
-  try {
-    await Booking.findByIdAndUpdate(req.params.id, { status: 'cancelled' });
-    res.status(200).json({ message: 'Booking cancelled' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error cancelling booking' });
-  }
-});
+  });
 
-module.exports = router;
+
+  
+  module.exports = router;

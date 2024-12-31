@@ -1,63 +1,40 @@
-const express = require('express');
-const Vehicle = require('../models/Vehicle'); // Import Mongoose model
+const express = require("express");
+const Vehicle = require("../models/Vehicle")
+
 const router = express.Router();
 
-// Get all vehicles with optional filters
+// Create a new vehicle
+router.post('/add', async (req, res) => {
+  const { make, model, year, pricePerDay, images, description } = req.body;
+
+  const vehicle = new Vehicle({
+    make, model, year, pricePerDay, images, description,
+  });
+  await vehicle.save();
+
+  res.json({ message: 'Vehicle added successfully' });
+});
+
+// Get all vehicles
 router.get('/', async (req, res) => {
-  try {
-    const { make, model, location, minPrice, maxPrice, type } = req.query;
-
-    const filters = {
-      ...(make && { make: new RegExp(make, 'i') }),
-      ...(model && { model: new RegExp(model, 'i') }),
-      ...(location && { location: new RegExp(location, 'i') }),
-      ...(type && { vehicle_type: type }),
-      ...(minPrice && { price_per_day: { $gte: parseFloat(minPrice) } }),
-      ...(maxPrice && { price_per_day: { $lte: parseFloat(maxPrice) } }),
-    };
-
-    const vehicles = await Vehicle.find(filters);
-    res.status(200).json(vehicles);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error fetching vehicles' });
-  }
+  const vehicles = await Vehicle.find();
+  res.json(vehicles);
 });
 
-// Add a new vehicle
-router.post('/', async (req, res) => {
-  try {
-    const vehicle = new Vehicle(req.body);
-    await vehicle.save();
-    res.status(201).json(vehicle);
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: 'Error adding vehicle' });
-  }
+// Get a vehicle by ID
+router.get('/:id', async (req, res) => {
+  const vehicle = await Vehicle.findById(req.params.id);
+  res.json(vehicle);
 });
 
-// Update a vehicle
-router.put('/:id', async (req, res) => {
-  try {
-    const vehicle = await Vehicle.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    res.status(200).json(vehicle);
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: 'Error updating vehicle' });
+const adminMiddleware = (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Forbidden' });
   }
-});
-
-// Delete a vehicle
-router.delete('/:id', async (req, res) => {
-  try {
-    await Vehicle.findByIdAndDelete(req.params.id);
-    res.status(204).send();
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: 'Error deleting vehicle' });
-  }
+  next();
+};
+router.post('/add', adminMiddleware, async (req, res) => {
+  // Only admin can add vehicles
 });
 
 module.exports = router;
