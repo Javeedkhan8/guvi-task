@@ -1,9 +1,10 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { submitReview } from '../api/index';
 
 const Review = () => {
   const { vehicleId } = useParams(); // Extract vehicleId from URL
+  const navigate = useNavigate(); // For navigation
   const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState('');
 
@@ -13,14 +14,27 @@ const Review = () => {
     try {
       await submitReview(vehicleId, rating, reviewText, token);
       alert('Review submitted successfully');
+      navigate('/vehiclelist'); // Redirect to vehicle list after successful review submission
     } catch (error) {
       console.error('Error submitting review:', error);
     }
   };
 
+  const handleClose = () => {
+    navigate(-1); // Navigate to the previous page
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-900 to-indigo-900 flex items-center justify-center">
-      <div className="max-w-lg w-full p-8 border border-gray-700 bg-gray-800 rounded-lg shadow-lg">
+      <div className="max-w-lg w-full p-8 border border-gray-700 bg-gray-800 rounded-lg shadow-lg relative">
+        {/* Close Button */}
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 text-white text-2xl font-semibold hover:text-gray-400"
+        >
+          &times;
+        </button>
+
         <h2 className="text-3xl font-bold text-center text-white mb-6">Leave a Review for Vehicle</h2>
         <h3 className="text-xl text-center text-gray-300 mb-4">Vehicle ID: {vehicleId}</h3>
         <form onSubmit={handleSubmitReview}>

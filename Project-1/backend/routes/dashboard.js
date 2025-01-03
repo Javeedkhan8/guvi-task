@@ -21,7 +21,7 @@ router.get('/bookings', async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     
     // Fetch bookings associated with the userId decoded from the token
-    const bookings = await Booking.find({ user: decoded.userId }).populate('vehicle');
+    const bookings = await Booking.find({ user: decoded.userId }).populate('vehicle').exec();
     
     // Return the bookings if successful
     res.status(200).json(bookings);

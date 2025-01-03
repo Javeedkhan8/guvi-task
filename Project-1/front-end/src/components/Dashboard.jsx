@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { fetchUserProfile, fetchUserBookings, fetchUserReviews } from '../api/index';
-import { modifyBooking, cancelBooking } from '../api/bookingApi';
+import { cancelBooking } from '../api/bookingApi';
 
 const Dashboard = () => {
   const location = useLocation();
@@ -44,13 +44,6 @@ const Dashboard = () => {
     </div>
   );
 
-  // Handle Modify Booking (redirect to Vehicle List with booking data)
-  const handleModify = (booking) => {
-    navigate('/vehiclelist', {
-      state: { bookingDetails: booking },
-    });
-  };
-
   // Handle Cancel Booking
   const handleCancel = async (bookingId) => {
     try {
@@ -60,10 +53,6 @@ const Dashboard = () => {
         prevBookings.filter((booking) => booking._id !== bookingId)
       );
 
-      const storedBookings = JSON.parse(localStorage.getItem('bookings')) || [];
-      const updatedBookings = storedBookings.filter((booking) => booking._id !== bookingId);
-      localStorage.setItem('bookings', JSON.stringify(updatedBookings)); 
-
       alert('Booking canceled successfully');
     } catch (error) {
       console.error('Error canceling booking:', error);
@@ -71,9 +60,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-blue-500 text-white">
+    <div className="min-h-screen bg-gray-400 text-white">
       {/* Navbar */}
-      <nav className="bg-gray-800 p-4">
+      <nav className="bg-black p-4">
         <div className="flex justify-between items-center container mx-auto">
           <Link to="/" className="text-2xl font-bold text-white">Rental System</Link>
           <div className="space-x-4">
@@ -85,75 +74,77 @@ const Dashboard = () => {
             </Link>
             <button
               onClick={() => navigate('/vehiclelist')}
-              className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              className="text-blue-500 px-6 py-2 rounded-md hover:text-blue-700 text-lg font-semibold transition-colors"
             >
-              Go to Vehicle Page
+              Go to Vehicle List
             </button>
           </div>
         </div>
       </nav>
+      <h1 className="text-3xl p-4 font-bold mb-8 text-gray-600 bg-white text-center">Dashboard</h1>
 
       <div className="container mx-auto p-8">
-        <h1 className="text-5xl font-bold mb-8">Dashboard</h1>
-        <h1 className="text-3xl font-bold mb-6">Welcome, {user.name} </h1>
+        <h1 className="text-3xl font-semibold mb-6 text-center">Welcome, {user.name}</h1>
 
         {/* Bookings Section */}
-        <section className="mb-8">
+        <div className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Your Bookings</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {bookings.map((booking) => (
-              <div key={booking._id} className="p-6 bg-gray-800 rounded-lg shadow-lg">
-                <img
-                  src={booking.vehicle.image} 
-                  alt={`${booking.vehicle.make} ${booking.vehicle.model}`}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
-                <h3 className="text-xl font-semibold mb-2">
-                  {booking.vehicle.make} {booking.vehicle.model}
+              <div key={booking._id} className="p-6 bg-white border border-2 shadow-lg">
+                {/* Booking Image */}
+                {booking.vehicle && booking.vehicle.image ? (
+                  <img
+                    src={booking.vehicle.image} 
+                    alt={`${booking.vehicle.make} ${booking.vehicle.model}`}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                ) : (
+                  <div className="w-full h-48 bg-gray-600 rounded-lg mb-4"></div> // Placeholder if no image
+                )}
+                <h3 className="text-xl text-gray-800 font-semibold mb-2">
+                  {booking.vehicle ? `${booking.vehicle.make} ${booking.vehicle.model}` : 'Vehicle details not available'}
                 </h3>
                 <p className="text-gray-400 text-sm mb-2">Start Date: {new Date(booking.start_date).toLocaleDateString()}</p>
                 <p className="text-gray-400 text-sm mb-2">End Date: {new Date(booking.end_date).toLocaleDateString()}</p>
-                <p className="text-lg font-bold text-gray-100">Total Price: ${booking.total_price}</p>
-
-                <div className="mt-4 flex justify-between space-x-4">
-                  <button
-                    onClick={() => handleModify(booking)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    Modify Booking
-                  </button>
-                  <button
-                    onClick={() => handleCancel(booking._id)}
-                    className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
-                  >
-                    Cancel Booking
-                  </button>
-                </div>
+                <p className="text-lg font-bold text-gray-800">Total Price: ${booking.total_price}</p>
+                <button
+                  onClick={() => handleCancel(booking._id)}
+                  className="mt-4 bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors"
+                >
+                  Cancel Booking
+                </button>
               </div>
             ))}
           </div>
-        </section>
+        </div>
 
         {/* Reviews Section */}
-        <section>
+        <div>
           <h2 className="text-2xl font-semibold mb-4">Your Reviews</h2>
-          <div className="flex overflow-x-auto space-x-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {reviews.map((review) => (
               <div key={review._id} className="p-6 bg-gray-800 rounded-lg shadow-lg flex-none w-80">
-                <img
-                  src={review.vehicle.image}
-                  alt={`${review.vehicle.make} ${review.vehicle.model}`}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
+                {/* Review Image */}
+                {review.vehicle && review.vehicle.image ? (
+                  <img
+                    src={review.vehicle.image}
+                    alt={`${review.vehicle.make} ${review.vehicle.model}`}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                ) : (
+                  <div className="w-full h-48 bg-gray-600 rounded-lg mb-4"></div> // Placeholder if no image
+                )}
                 <h3 className="text-xl font-semibold mb-2">
-                  {review.vehicle.make} {review.vehicle.model}
+                  {review.vehicle ? `${review.vehicle.make} ${review.vehicle.model}` : 'Vehicle details not available'}
                 </h3>
                 <p className="text-gray-400 text-sm mb-2">Rating: {review.rating}</p>
                 <p className="text-gray-300">{review.review_text}</p>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+
       </div>
     </div>
   );

@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 
-const API_BASE_URL = 'https://guvi-task-9-yc6g.onrender.com/api/bookings';
+const API_BASE_URL = 'http://localhost:2002/api/bookings';
 
 // Create a booking
 export const createBooking = async (bookingData) => {
   try {
+    console.log('Booking Data Sent to Backend:', bookingData);
     const response = await axios.post(API_BASE_URL, bookingData);
     return response.data;
   } catch (error) {
@@ -17,7 +18,7 @@ export const createBooking = async (bookingData) => {
 export const fetchUserBookings = async (userId) => {
   try {
     const token = localStorage.getItem('apiKey');
-    const response = await axios.get(`https://guvi-task-9-yc6g.onrender.com/api/dashboard/bookings`, {
+    const response = await axios.get(`http://localhost:2002/api/dashboard/bookings`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

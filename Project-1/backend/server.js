@@ -27,15 +27,15 @@ connectDB();
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/payments', paymentRoutes);
-app.use('/api/reports', reportRoutes);
+app.use('/api/vehicles/reports', reportRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', Dashboard);
-app.use('/api/rentalhistory', rentalHistoryRoutes);
+app.use('/api/vehicles/rentalhistory', rentalHistoryRoutes);
 app.use('/api/payment',paymentRoutes);
 app.use('/api/reviews',Reviews);
 
 
-connectDB()
+
 
 // Root Route
 app.get('/', (req, res) => {

@@ -13,6 +13,7 @@ router.get('/:vehicleId/:userId/rental-history', async (req, res) => {
     const { vehicleId, userId } = req.params; // Both vehicleId and userId from URL params
     console.log('Authorization Header:', req.headers.authorization)
 
+
     // Verify Authorization Header
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -22,13 +23,17 @@ router.get('/:vehicleId/:userId/rental-history', async (req, res) => {
     const token = authHeader.split(' ')[1];
     let decodedToken;
     try {
-      decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY); // Replace with your secret
+      decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      console.log('Decoded Token:', decodedToken);
+      console.log("Decoded userId:", decodedToken.userId);
+      console.log("URL userId:", userId);
+
     } catch (err) {
       return res.status(403).json({ message: 'Invalid or expired token' });
     }
 
     // Ensure the user making the request matches the userId in params
-    if (decodedToken.id !== userId) {
+    if (decodedToken.userId!== userId) {
       return res.status(403).json({ message: 'Unauthorized access to rental history' });
     }
 

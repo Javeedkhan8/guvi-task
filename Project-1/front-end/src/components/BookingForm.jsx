@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar'; // Calendar for date range selection
 import 'react-calendar/dist/Calendar.css'; // Import calendar styles
@@ -19,6 +18,12 @@ const BookingForm = ({ onClose }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!vehicleId) {
+      setError('Vehicle ID is missing. Please select a valid vehicle.');
+    }
+  }, [vehicleId]);
+
+  useEffect(() => {
     const calculatePrice = () => {
       const diffTime = Math.abs(dates[1] - dates[0]);
       const diffDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
@@ -28,6 +33,10 @@ const BookingForm = ({ onClose }) => {
   }, [dates, pricePerDay]);
 
   const handleBooking = async () => {
+    if (!vehicleId) {
+      setError('Vehicle ID is missing. Cannot proceed with booking.');
+      return;
+    }
     if (!userId) {
       setError('Please enter a User ID to proceed with the booking.');
       return;
@@ -35,30 +44,30 @@ const BookingForm = ({ onClose }) => {
 
     setLoading(true);
     const bookingData = {
-      user: userId,
-      vehicle: vehicleId,
+      vehicleId,
+      userId,
       start_date: dates[0],
       end_date: dates[1],
       total_price: totalPrice,
     };
 
+    console.log('Booking Data:', bookingData); // Debug logging
+
     try {
       await createBooking(bookingData);
       alert('Booking confirmed!');
       navigate(`/user/bookings/${userId}`);
-      onClose();
+      // onClose();
     } catch (err) {
+      console.error('Error creating booking:', err);
       setError(err.response?.data?.message || 'Error creating booking');
     } finally {
       setLoading(false);
-
-
     }
   };
 
   return (
-
-    <div className="p-8 bg-blue-600 text-white min-h-screen flex flex-col items-center">
+    <div className="p-8 bg-black text-white min-h-screen flex flex-col items-center">
       <h1 className="text-4xl font-bold text-gray-100 mb-6">
         Book Your Vehicle
       </h1>
@@ -66,7 +75,9 @@ const BookingForm = ({ onClose }) => {
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <div className="mb-6 flex justify-center">
-        <label htmlFor="dates" className="block text-lg mb-1 text-xl font-semibold">Select Dates</label>
+        <label htmlFor="dates" className="block text-lg mb-1 text-xl font-semibold">
+          Select Dates
+        </label>
       </div>
 
       <div className="mb-6 flex justify-center">
@@ -79,13 +90,15 @@ const BookingForm = ({ onClose }) => {
       </div>
 
       <div className="mb-6">
-        <label htmlFor="userId" className="block text-lg mb-2">User ID:</label>
+        <label htmlFor="userId" className="block text-lg mb-2 hidden">
+          User ID:
+        </label>
         <input
           type="text"
           id="userId"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
-          className="w-full p-2 bg-gray-300 rounded-md"
+          className="w-full p-2 bg-gray-300 rounded-md hidden"
           placeholder="Enter your User ID"
         />
       </div>
@@ -111,6 +124,5 @@ const BookingForm = ({ onClose }) => {
     </div>
   );
 };
-
 
 export default BookingForm;

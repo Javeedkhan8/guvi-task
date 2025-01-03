@@ -6,36 +6,7 @@ const sendEmail = require("../services/emailService");
 const sendSMS = require("../services/smsService");
 const router = express.Router();
 
-// Create a booking
-router.post('/', async (req, res) => {
-    const { vehicleId, userId, startDate, endDate, totalAmount } = req.body;
-  
-    // Check vehicle availability
-    const vehicle = await Vehicle.findById(vehicleId);
-    if (!vehicle || !vehicle.availability) {
-      return res.status(400).json({ message: 'Vehicle not available' });
-    }
-  
-    const booking = new Booking({
-      vehicle: vehicleId,
-      user: userId,
-      startDate,
-      endDate,
-      totalAmount,
-    });
 
-    vehicle.bookedCount += 1;
-    await vehicle.save();
-    // Save the booking
-    await booking.save();
-  
-    // Mark vehicle as unavailable
-    vehicle.availability = false;
-    await vehicle.save();
-  
-    res.json(booking);
-  });
-  
   // Get all bookings for a user
   router.get('/:userId', async (req, res) => {
     const bookings = await Booking.find({ user: req.params.userId })
@@ -52,45 +23,65 @@ router.post('/', async (req, res) => {
     res.json(booking);
   });
 
-  // Create a booking
-router.post('/', async (req, res) => {
-    const { vehicleId, userId, startDate, endDate, totalAmount } = req.body;
+  router.post('/', async (req, res) => {
+    const { vehicleId, userId, start_date, end_date, total_price } = req.body;
+
   
-    // Check vehicle availability
-    const vehicle = await Vehicle.findById(vehicleId);
-    if (!vehicle || !vehicle.availability) {
-      return res.status(400).json({ message: 'Vehicle not available' });
+    try {
+      const vehicle = await Vehicle.findById(vehicleId);
+      console.log('Vehicle fetched:', vehicle);
+  
+      if (!vehicle || !vehicle.availability) {
+        return res.status(400).json({ message: 'Vehicle not available' });
+      }
+  
+      const booking = new Booking({
+        vehicle: vehicleId,
+        user: userId,
+        start_date,
+        end_date,
+        total_price,
+      });
+  
+      await booking.save();
+  
+      vehicle.bookedCount += 1;
+      vehicle.availability = false;
+      await vehicle.save();
+  
+      const user = await User.findById(userId);
+      const emailText = `Dear ${user.username},\n\nYour booking for ${vehicle.make} ${vehicle.model} from ${start_date} to ${end_date} has been confirmed. Total Amount: $${total_price}.`;
+      sendEmail(user.email, 'Booking Confirmation', emailText);
+  
+      // const smsText = `Dear ${user.username}, your booking for ${vehicle.make} ${vehicle.model} from ${start_date} to ${end_date} has been confirmed. Total Amount: $${total_price}.`;
+      // sendSMS(user.phone, smsText);
+  
+      res.json(booking);
+    } catch (error) {
+      console.error('Error during booking:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
-  
-    const booking = new Booking({
-      vehicle: vehicleId,
-      user: userId,
-      startDate,
-      endDate,
-      totalAmount,
-    });
-  
-    // Save the booking
-    await booking.save();
-  
-    // Mark vehicle as unavailable
-    vehicle.availability = false;
-    await vehicle.save();
-  
-    // Get the user's email from the database
-    const user = await User.findById(userId);
-  
-    // Send email confirmation
-    const emailText = `Dear ${user.username},\n\nYour booking for ${vehicle.make} ${vehicle.model} from ${startDate} to ${endDate} has been confirmed. Total Amount: $${totalAmount}.\n\nThank you for using our service!`;
-    sendEmail(user.email, 'Booking Confirmation', emailText);
-  
-    res.json(booking);
-
-    const smsText = `Dear ${user.username}, your booking for ${vehicle.make} ${vehicle.model} from ${startDate} to ${endDate} has been confirmed. Total Amount: $${totalAmount}.`;
-    sendSMS(user.phone, smsText);
-
-
   });
+
+  router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      // Find and delete the booking by ID
+      const booking = await Booking.findByIdAndDelete(id);
+  
+      if (!booking) {
+        return res.status(404).json({ message: 'Booking not found' });
+      }
+  
+      res.status(200).json({ message: 'Booking cancelled successfully' });
+    } catch (error) {
+      console.error('Error cancelling booking:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+  
 
 
   

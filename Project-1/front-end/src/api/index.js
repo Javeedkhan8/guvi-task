@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Set up Axios instance
 const api = axios.create({
-  baseURL: 'https://guvi-task-9-yc6g.onrender.com/api', 
+  baseURL: 'http://localhost:2002/api', 
   headers: {
     'Content-Type': 'application/json',
   },
@@ -30,7 +30,7 @@ export const loginUser = async (email, password) => {
     const decoded = JSON.parse(atob(token.split('.')[1])); // Decode JWT to get userId
 
     // Store token in localStorage
-    localStorage.setItem('authToken', token); // Store the token for future requests
+    localStorage.setItem('token', token); // Store the token for future requests
     localStorage.setItem('userId', decoded.userId); // Store userId for later use (if needed)
 
     return response.data; // Return the response as needed

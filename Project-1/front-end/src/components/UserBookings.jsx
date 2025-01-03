@@ -63,9 +63,25 @@ const UserBookings = () => {
               className="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow"
             >
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-semibold">
-                  {booking.vehicle.make} {booking.vehicle.model}
-                </h3>
+                {/* Check if vehicle data exists */}
+                {booking.vehicle ? (
+                  <>
+                    <h3 className="text-xl font-semibold">
+                      {booking.vehicle.make} {booking.vehicle.model}
+                    </h3>
+                    {booking.vehicle.image ? (
+                      <img
+                        src={booking.vehicle.image}
+                        alt={`${booking.vehicle.make} ${booking.vehicle.model}`}
+                        className="w-16 h-16 object-cover rounded-full"
+                      />
+                    ) : (
+                      <div className="w-16 h-16 bg-gray-600 rounded-full"></div> // Placeholder for missing image
+                    )}
+                  </>
+                ) : (
+                  <p className="text-gray-400">Vehicle information not available</p>
+                )}
                 <span className="text-gray-400 text-sm">
                   {new Date(booking.start_date).toLocaleDateString()} -{' '}
                   {new Date(booking.end_date).toLocaleDateString()}
@@ -75,7 +91,7 @@ const UserBookings = () => {
                 <strong>Total Price:</strong> ${booking.total_price}
               </p>
 
-              {/* Smaller Cancel Booking Button */}
+              {/* Cancel Booking Button */}
               <button
                 className="bg-red-600 text-white py-1 px-4 rounded-md hover:bg-red-700 transition-colors"
                 onClick={() => handleCancel(booking._id)}

@@ -5,7 +5,7 @@ const Booking = require('../models/Booking');
 const router = express.Router();
 
 // Generate rental history report for a vehicle (admin or owner)
-router.get('/:vehicleId/report', async (req, res) => {
+router.get('/:vehicleId', async (req, res) => {
   try {
     const vehicle = await Vehicle.findById(req.params.vehicleId);
     if (!vehicle) {

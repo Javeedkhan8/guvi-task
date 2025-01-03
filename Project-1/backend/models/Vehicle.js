@@ -6,7 +6,7 @@ const vehicleSchema = new mongoose.Schema({
   year: Number,
   image: String,
   price_per_day: Number,
-  availability: Boolean,
+  availability: { type: Boolean, default: true },
   average_rating: { type: Number, default: 0 },
   user: {
     type: mongoose.Schema.Types.ObjectId,

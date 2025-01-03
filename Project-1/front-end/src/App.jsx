@@ -30,7 +30,7 @@ function App() {
             <Route path = "/user/bookings/:userId" element = {<UserBookings />} />
             <Route path = "/paymentbutton" element ={<PayPalPaymentButton/>}/>
             <Route path = "/paymentsucess" element = {<PaymentSuccess/>}/>
-            <Route path = "/rentalreport" element = {<RentalReport/>}/>
+            <Route path = "/rentalreport/:vehicleId" element = {<RentalReport/>}/>
             <Route path = "/rental-history/:vehicleId/:userId" element = {<RentalHistory/>}/>
             <Route path = "/register" element ={<Register/>}/>
             <Route path = "/login" element = {<Login/>}/>

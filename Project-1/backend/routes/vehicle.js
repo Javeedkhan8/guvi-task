@@ -5,10 +5,10 @@ const router = express.Router();
 
 // Create a new vehicle
 router.post('/add', async (req, res) => {
-  const { make, model, year, pricePerDay, images, description } = req.body;
+  const { make, model, year,image, price_per_day,availability,average_rating,user } = req.body;
 
   const vehicle = new Vehicle({
-    make, model, year, pricePerDay, images, description,
+    make, model, year, image,price_per_day,availability,average_rating,user
   });
   await vehicle.save();
 
