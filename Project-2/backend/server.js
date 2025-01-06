@@ -10,6 +10,7 @@ const applicationRoutes = require('./routes/applicationRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 const interviewRoutes = require('./routes/interviewRoutes');
 const analyticsRoutes = require("./routes/analytic");
+const adminRoutes = require("./routes/adminRoutes")
 
 dotenv.config();
 connectDB();
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api/students', studentRoutes);
+app.use('/api/admin',adminRoutes)
 app.use('/api/applications', applicationRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/interviews', interviewRoutes);

@@ -2,13 +2,65 @@
 import axios from 'axios';
 
 // Set your backend API base URL
-const API_BASE_URL = 'https://guvi-task-8-9e2s.onrender.com/api';
+const API_BASE_URL = 'http://localhost:2004/api';
 
 // Student API Endpoints
 export const registerStudent = async (studentData) => {
   const response = await axios.post(`${API_BASE_URL}/students/register`, studentData);
   return response.data;
 };
+
+export const loginstudent = async (email, password) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/students/login`, { email, password });
+    const { token } = response.data;
+
+    // Decode the token to extract the userId (optional if you need to store it separately)
+    const decoded = JSON.parse(atob(token.split('.')[1])); // Decode JWT to get userId
+
+    // Store token in localStorage
+    localStorage.setItem('token', token); // Store the token for future requests
+    localStorage.setItem('studentId', decoded.studentId); 
+
+    return response.data; // Return the response as needed
+  } catch (error) {
+    console.error('Error logging in user:', error);
+    throw error;
+  }
+};
+
+export const registerAdmin = async (name, email, password) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/admin/register`, { name, email, password });
+    return response.data;
+  } catch (error) {
+    console.error('Error registering user:', error);
+    throw error;
+  }
+};
+
+
+
+export const loginAdmin = async (email, password) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/admin/login`, { email, password });
+    const { token } = response.data;
+
+    // Decode the token to extract the userId (optional if you need to store it separately)
+    const decoded = JSON.parse(atob(token.split('.')[1])); // Decode JWT to get userId
+
+    // Store token in localStorage
+    localStorage.setItem('token', token); // Store the token for future requests
+    localStorage.setItem('adminId', decoded.adminId); 
+
+    return response.data; // Return the response as needed
+  } catch (error) {
+    console.error('Error logging in user:', error);
+    throw error;
+  }
+};
+
+
 
 export const fetchStudents = async () => {
   const response = await axios.get(`${API_BASE_URL}/students`);

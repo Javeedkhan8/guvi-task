@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:2002/api/vehicles'; 
+const API_BASE_URL = 'https://guvi-task-14-ki1b.onrender.com/api/vehicles'; 
 
 // Fetch all vehicles with optional filters
 export const fetchVehicles = async (filters) => {

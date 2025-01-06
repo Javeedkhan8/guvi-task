@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const API_BASE_URL = 'http://localhost:2002/api/bookings';
+const API_BASE_URL = 'https://guvi-task-14-ki1b.onrender.com/api/bookings';
 
 // Create a booking
 export const createBooking = async (bookingData) => {
@@ -18,7 +18,7 @@ export const createBooking = async (bookingData) => {
 export const fetchUserBookings = async (userId) => {
   try {
     const token = localStorage.getItem('apiKey');
-    const response = await axios.get(`http://localhost:2002/api/dashboard/bookings`, {
+    const response = await axios.get(`https://guvi-task-14-ki1b.onrender.com/api/dashboard/bookings`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

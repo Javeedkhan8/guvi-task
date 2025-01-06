@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Set up Axios instance
 const api = axios.create({
-  baseURL: 'http://localhost:2002/api', 
+  baseURL: 'https://guvi-task-14-ki1b.onrender.com/api', 
   headers: {
     'Content-Type': 'application/json',
   },

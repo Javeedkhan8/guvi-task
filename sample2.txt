@@ -1,0 +1,65 @@
+/vehicle-rental-system
+├── /client (React Frontend)
+│   ├── /public
+│   │   ├── index.html
+│   │   └── favicon.ico
+│   ├── /src
+│   │   ├── /assets
+│   │   │   └── images/
+│   │   ├── /components
+│   │   │   ├── VehicleCard.js-
+│   │   │   ├── VehicleList.js
+│   │   │   ├── BookingForm.js
+│   │   │   ├── Navbar.js
+│   │   │   ├── ReviewForm.js
+│   │   │   ├── Dashboard.js
+│   │   │   └── AdminDashboard.js
+│   │   ├── /pages
+│   │   │   ├── Home.js
+│   │   │   ├── VehicleDetail.js
+│   │   │   ├── BookingConfirmation.js
+│   │   │   ├── Login.js
+│   │   │   ├── Register.js
+│   │   │   ├── UserProfile.js
+│   │   │   └── AdminDashboardPage.js
+│   │   ├── /services
+│   │   │   ├── api.js-
+│   │   │   ├── authService.js
+│   │   │   ├── vehicleService.js
+│   │   │   ├── paymentService.js
+│   │   │   └── reviewService.js
+│   │   ├── /utils
+│   │   │   ├── privateRoute.js
+│   │   │   └── calendarUtils.js
+│   │   ├── App.js
+│   │   ├── index.js
+│   │   └── tailwind.config.js
+├── /server (Node.js Backend)
+│   ├── /config
+│   │   └── db.js
+│   ├── /controllers
+│   │   ├── authController.js-
+│   │   ├── vehicleController.js-
+│   │   ├── bookingController.js-
+│   │   ├── paymentController.js
+│   │   └── reviewController.js
+│   ├── /models
+│   │   ├── User.js-
+│   │   ├── Vehicle.js-
+│   │   ├── Booking.js-
+│   │   └── Review.js-
+│   ├── /routes
+│   │   ├── authRoutes.js-
+│   │   ├── vehicleRoutes.js-
+│   │   ├── bookingRoutes.js-
+│   │   ├── paymentRoutes.js
+│   │   └── reviewRoutes.js-
+│   ├── /middleware
+│   │   ├── authMiddleware.js-
+│   │   └── adminMiddleware.js
+│   ├── /utils
+│   │   └── emailUtils.js
+│   ├── server.js
+│   └── .env
+├── package.json
+└── tailwind.config.js

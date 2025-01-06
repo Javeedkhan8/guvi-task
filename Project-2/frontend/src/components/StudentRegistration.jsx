@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const StudentRegistration = () => {
   const [formData, setFormData] = useState({
     name: '',
+    password:'',
     email: '',
     resume: '',
     coverLetter: '',
@@ -21,7 +22,7 @@ const StudentRegistration = () => {
     try {
       const response = await registerStudent(formData);
       alert('Registration Successful!');
-      setFormData({ name: '', email: '', resume: '', coverLetter: '' }); 
+      setFormData({ name: '', email: '', password:'',resume: '', coverLetter: '' }); 
     } catch (error) {
       console.error(error.message);
       alert('Error during registration. Please try again.');
@@ -29,7 +30,7 @@ const StudentRegistration = () => {
   };
 
   const handleClose = () => {
-    navigate('/home'); // Navigate back to homepage on close
+    navigate('/login'); // Navigate back to homepage on close
   };
 
   return (
@@ -51,6 +52,17 @@ const StudentRegistration = () => {
             type="text"
             name="name"
             value={formData.name}
+            onChange={handleChange}
+            className="w-full py-3 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block text-gray-700 text-sm font-medium mb-2">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
             onChange={handleChange}
             className="w-full py-3 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
             required
