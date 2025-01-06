@@ -14,7 +14,7 @@ function HomePage() {
       {/* Navigation Bar */}
       <nav className="bg-blue-900 text-white py-4 shadow-md">
         <div className="container mx-auto flex justify-between items-center px-4">
-          <h1 className="text-2xl font-bold">Placement System</h1>
+          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6">

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 function AboutPage() {
   return (
@@ -61,12 +62,11 @@ function AboutPage() {
 
         {/* Call-to-Action */}
         <div className="mt-16 text-center">
-          <a
-            href="/mainpage"
+          <Link to="/mainpage"
             className="bg-blue-600 text-white px-8 py-4 rounded-full text-xl font-semibold shadow-lg hover:bg-blue-500 transition-all duration-300 transform hover:scale-105"
           >
-            Go to Home
-          </a>
+            Go to Home <Link/>
+          </Link>
         </div>
       </div>
     </div>
