@@ -1,8 +1,19 @@
-# React + Vite
+# 🛒 One Click Shopping – Mini eCommerce App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight **eCommerce web application** built using **React**. It showcases products fetched from [FakeStoreAPI](https://fakestoreapi.com/) and allows users to add/remove items from the cart. This project demonstrates basic concepts of state management, conditional rendering, API consumption, and component-based UI using React.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Fetch product list from an external API
+- Display products in a responsive grid layout
+- Add products to the cart
+- Remove items from the cart
+- Modal-style cart UI with clean layout
+
+## 🧱 Tech Stack
+
+- **React** – Frontend library
+- **Tailwind CSS** – For styling (utility-first)
+- **FakeStoreAPI** – External REST API for fake product data
+
+
